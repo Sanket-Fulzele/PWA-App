@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { BrowserMultiFormatReader, BarcodeFormat } from '@zxing/browser';
+import { BrowserMultiFormatReader } from '@zxing/browser';
+import './About.css';
 
 const About: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -40,7 +41,6 @@ const About: React.FC = () => {
     // convert canvas to image element
     imgRef.current.src = canvas.toDataURL();
 
-    // include all supported formats explicitly (optional)
     const codeReader = new BrowserMultiFormatReader();
 
     try {
@@ -61,35 +61,33 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="about-container">
       <h2>About - Scan Barcode & QR Code</h2>
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <div>
+      <div className="scanner-container">
+        <div className="camera-container">
           <h4>📷 Live Camera</h4>
-          <video ref={videoRef} style={{ width: '300px', border: '1px solid black' }} />
+          <video ref={videoRef} className="camera-view" />
         </div>
-        <div>
+        <div className="capture-container">
           <h4>🖼 Captured Image</h4>
           <img
             ref={imgRef}
             alt="Captured frame"
-            style={{ width: '300px', border: '1px solid black' }}
+            className="captured-image"
           />
         </div>
       </div>
-      <br />
-      <button onClick={captureAndScan} disabled={!streaming}>
-        Capture & Scan
-      </button>
-      <p>
-        <strong>Scanned Result:</strong> {result || 'No barcode/QR code scanned yet.'}
-      </p>
+      <div className="controls">
+        <button onClick={captureAndScan} disabled={!streaming} className="scan-button">
+          Capture & Scan
+        </button>
+        <div className="result-display">
+          <strong>Scanned Result:</strong> {result || 'No barcode/QR code scanned yet.'}
+        </div>
+      </div>
       <canvas ref={canvasRef} style={{ display: 'none' }} />
     </div>
   );
 };
 
 export default About;
-
-// https://app.qr-code-generator.com/manage/?aftercreate=1
-// https://barcode.tec-it.com/en/

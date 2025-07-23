@@ -1,0 +1,80 @@
+.about-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-container h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.scanner-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.camera-container,
+.capture-container {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.camera-container h4,
+.capture-container h4 {
+  margin-bottom: 1rem;
+  color: #34495e;
+}
+
+.camera-view,
+.captured-image {
+  width: 100%;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scan-button {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.scan-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.scan-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.result-display {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.result-display strong {
+  color: #2c3e50;
+}
