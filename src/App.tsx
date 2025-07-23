@@ -7,7 +7,7 @@ function App() {
   return (
    <>
    <h3  style={{ textAlign: 'center' }}>
-    Home App
+    Home App Center
    </h3>
    <Homepage />
    </>
