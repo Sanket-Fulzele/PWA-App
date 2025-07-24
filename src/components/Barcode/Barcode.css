@@ -92,6 +92,24 @@
   border: 2px solid #3498db;
 }
 
+@media (max-width: 768px) {
+  .camera-wrapper {
+    aspect-ratio: 1;
+    width: 85%;
+    margin: 0 auto;
+    max-height: none;
+  }
+
+  .camera-container {
+    max-width: none;
+  }
+
+  .scan-region {
+    width: 70% !important;
+    height: 70% !important;
+  }
+}
+
 .scan-overlay {
   position: absolute;
   top: 0;
