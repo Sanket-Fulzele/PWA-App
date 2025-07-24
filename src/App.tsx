@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Homepage from './components/Homepage/Homepage';
-import About from './components/About/About';
+import Barcode from './components/Barcode/Barcode';
 
 function App() {
   return (
@@ -26,15 +26,16 @@ function App() {
             <li>
               <Link to="/" style={{ textDecoration: 'none', color: '#007bff' }}>Home</Link>
             </li>
+          
             <li>
-              <Link to="/about" style={{ textDecoration: 'none', color: '#007bff' }}>About</Link>
+              <Link to="/barcode" style={{ textDecoration: 'none', color: '#007bff' }}>Barcode Scanner</Link>
             </li>
           </ul>
         </nav>
 
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/barcode" element={<Barcode />} />
         </Routes>
       </div>
     </Router>
