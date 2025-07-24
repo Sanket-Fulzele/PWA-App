@@ -16,15 +16,34 @@ const Barcode: React.FC = () => {
 
     const startCamera = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const constraints = {
+                video: {
+                    facingMode: { ideal: 'environment' }, // This will prefer the back camera
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    aspectRatio: { ideal: 16/9 }
+                }
+            };
+
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
             if (videoRef.current) {
                 videoRef.current.srcObject = stream;
                 videoRef.current.play();
                 setError('');
             }
         } catch (err) {
-            setError('Failed to access camera. Please make sure you have granted camera permissions.');
-            console.error(err);
+            // If environment camera fails, try fallback to any available camera
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                if (videoRef.current) {
+                    videoRef.current.srcObject = stream;
+                    videoRef.current.play();
+                    setError('');
+                }
+            } catch (fallbackErr) {
+                setError('Failed to access camera. Please make sure you have granted camera permissions.');
+                console.error(fallbackErr);
+            }
         }
     };
 
