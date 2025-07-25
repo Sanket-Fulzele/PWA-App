@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, InfoCircle } from 'react-bootstrap-icons';
 import "./scheduledTaskList.css";
+import { useNavigate } from 'react-router-dom';
 
 interface Task {
   id: number;
@@ -12,6 +13,7 @@ interface Task {
 }
 
 const ScheduledTaskList = () => {
+  const navigate = useNavigate();
   const [searchCriteria, setSearchCriteria] = useState({
     pickupNumber: '',
     address: '',
@@ -68,6 +70,7 @@ const ScheduledTaskList = () => {
 
   const handleDetailsClick = (taskId: number) => {
     console.log('Viewing details for task:', taskId);
+    navigate("/scheduled-tasks/details?id=" + taskId);
   };
 
   return (

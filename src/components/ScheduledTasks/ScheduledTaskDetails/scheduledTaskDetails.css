@@ -1,6 +1,85 @@
+/* Base Container */
+.compact-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Label */
+.compact-search__label {
+  font-size: 0.9375rem; /* 15px - slightly larger */
+  font-weight: 500;
+  color: #4a5568;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Input Group */
+.compact-search__group {
+  display: flex;
+  flex-grow: 1;
+  min-width: 0; /* Allows shrinking */
+}
+
+/* Input Field */
+.compact-search__input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid #e2e8f0;
+  border-right: none;
+  border-radius: 0.25rem 0 0 0.25rem;
+  min-height: 36px;
+  min-width: 50px; /* Ensures it doesn't collapse */
+}
+
+.compact-search__input:focus {
+  outline: none;
+  border-color: #3182ce;
+}
+
+/* Search Button */
+.compact-search__button {
+  padding: 0 0.75rem;
+  background-color: #3182ce;
+  border: none;
+  border-radius: 0 0.25rem 0.25rem 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  flex-shrink: 0;
+}
+
+.compact-search__button:hover {
+  background-color: #2c5282;
+}
+
+/* Responsive Tweaks */
+@media (min-width: 640px) {
+  .compact-search__label {
+    font-size: 1rem; /* Slightly larger on desktop */
+  }
+  
+  .compact-search__input {
+    min-width: 120px;
+  }
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  /* Header Section */
  .pickup-id {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #333;
     margin-bottom: 8px !important;
 }
@@ -74,7 +153,7 @@
 
 @media (max-width: 576px) {
     .pickup-id {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
     
     .pickup-badge, .status-indicator {
@@ -160,10 +239,6 @@
   cursor: pointer;
 }
 
-/* .custom-accordion .card-header-details-accordion {
-    margin-bottom: 1px !important;
-} */
-
 .custom-accordion .card-header:hover {
   background-color: #f8f9fa;
 }
@@ -185,12 +260,12 @@
 .item-details {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
 }
 
 .detail-row {
   display: flex;
   align-items: flex-start;
+  gap: 5px;
 }
 
 .detail-label {
