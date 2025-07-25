@@ -72,7 +72,7 @@ const ScheduledTaskList = () => {
 
   return (
     <div className='mobile-task-container'>
-      <h2 className='mobile-search-title'>Search by</h2>
+      <h2 className='mobile-search-title'>Search By</h2>
       <form onSubmit={handleSearch} className='mobile-search-form'>
         <div className='mobile-form-row'>
           <label htmlFor='pickupNumber' className='mobile-form-label'>Pickup Number</label>
@@ -82,6 +82,7 @@ const ScheduledTaskList = () => {
             id='pickupNumber'
             name='pickupNumber'
             value={searchCriteria.pickupNumber}
+            placeholder='Enter Pickup Number'
             onChange={handleInputChange}
           />
         </div>
@@ -94,6 +95,7 @@ const ScheduledTaskList = () => {
             id='address'
             name='address'
             value={searchCriteria.address}
+            placeholder='Enter Address'
             onChange={handleInputChange}
           />
         </div>
@@ -122,13 +124,13 @@ const ScheduledTaskList = () => {
       <div className='task-cards-container'>
         {tasksData.map((task) => (
           <div key={task.id} className='task-card'>
-            <div className='card-header'>
+            <div className='task-card-header'>
               <h3 className='supplier-name'>{task.supplierName}</h3>
               <span className={`status-badge ${task.status.toLowerCase().replace(' ', '-')}`}>
                 {task.status}
               </span>
             </div>
-            <div className='card-body'>
+            <div className='task-card-body'>
               <p className='card-address'>{task.address}</p>
               <div className='card-meta'>
                 <span>#{task.pickupNumber}</span>
