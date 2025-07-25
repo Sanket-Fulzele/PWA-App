@@ -12,7 +12,7 @@
     min-width: 100%;
     background-color: #ffffff;
     min-height: 100vh;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 .mobile-header {
@@ -41,56 +41,79 @@
     min-height: calc(100vh - 56px);
 }
 
+/* ========== offcanvas ============ */
+/* Updated Sidebar Styles */
 .offcanvas {
-    width: 250px !important;
+    width: 220px !important; /* Slightly reduced width */
 }
 
 .offcanvas-header {
     border-bottom: 1px solid #dee2e6;
+    padding: 0.75rem 1rem; /* Reduced padding */
 }
 
-.submenu-container {
-    margin-bottom: 0.5rem;
-}
-
-.submenu-items {
-    margin-left: 1.5rem;
-    padding-left: 0.5rem;
-    border-left: 2px solid #dee2e6;
-}
-
-.submenu-item {
-    padding: 0.25rem 1rem;
-    color: #495057;
-    text-decoration: none;
-}
-
-.submenu-item:hover {
-    color: #0d6efd;
-    background-color: rgba(13, 110, 253, 0.1);
+.offcanvas-title {
+    font-size: 1rem; /* Smaller title */
+    font-weight: 600;
 }
 
 .nav-link {
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem; /* Reduced padding */
     color: #333;
     font-weight: 500;
+    font-size: 0.875rem; /* Smaller font size */
+    border-radius: 4px;
+    margin-bottom: 0.125rem; /* Reduced space between items */
 }
 
 .nav-link:hover {
     background-color: #f0f0f0;
 }
 
+.submenu-container {
+    margin-bottom: 0.25rem; /* Reduced margin */
+}
+
+.submenu-items {
+    margin-left: 1rem; /* Reduced indentation */
+    padding-left: 0.5rem;
+    border-left: 1px solid #dee2e6; /* Thinner border */
+}
+
+.submenu-item {
+    padding: 0.25rem 0.75rem; /* More compact padding */
+    font-size: 0.8125rem; /* Smaller font for subitems */
+    margin-bottom: 0.125rem;
+}
+
 .sidebar-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    border-top: 1px solid #dee2e6;
+    padding: 0.75rem; /* Reduced padding */
 }
 
 .logout-btn {
     width: 100%;
+    padding: 0.375rem; /* More compact button */
+    font-size: 0.8125rem; /* Smaller font */
+}
+
+/* Adjust the chevron icons size */
+.submenu-container .nav-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Make the header more compact */
+.mobile-header {
+    padding: 0.25rem 0.5rem;
+    height: 48px; /* Reduced height */
+}
+
+.mobile-header .navbar-brand {
+    font-size: 1.1rem; /* Slightly smaller brand */
+}
+
+.main-content {
+    padding-top: 48px; /* Adjusted to match new header height */
 }
 
 .sidebar-toggle {
@@ -106,6 +129,28 @@
 .sidebar-toggle:focus {
     box-shadow: none !important;
 }
+
+/* Update the Offcanvas body to allow proper flex layout */
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+/* Ensure the navigation items take up available space */
+.nav-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Style for the bottom logout section */
+.logout-section {
+  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
 
 /* Desktop/Laptop Styles */
 @media (min-width: 768px) {
