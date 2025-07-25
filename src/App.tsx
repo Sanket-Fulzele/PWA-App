@@ -15,6 +15,7 @@ import ScheduledTaskList from './components/ScheduledTasks/ScheduledTaskList/Sch
 import ScheduledTaskDetails from './components/ScheduledTasks/ScheduledTaskDetails/ScheduledTaskDetails';
 import CompletedTasks from './components/CompletedTasks/CompletedTasks';
 import Profile from './components/Profile/Profile';
+import Camera from './components/Camera/Camera';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -94,6 +95,9 @@ function App() {
         <Nav.Link as={Link} to="/profile" onClick={handleCloseSidebar} className="py-1">
           My Profile
         </Nav.Link>
+        <Nav.Link as={Link} to="/camera" onClick={handleCloseSidebar} className="py-1">
+          Camera
+        </Nav.Link>
       </Nav>
     </div>
     
@@ -121,6 +125,7 @@ function App() {
               <Route path="/completed-tasks" element={<CompletedTasks />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/barcode" element={<Barcode />} />
+              <Route path="/camera" element={<Camera />} />
             </Routes>
           </Container>
         </main>
