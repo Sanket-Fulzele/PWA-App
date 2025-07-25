@@ -1,4 +1,5 @@
-.pickup-id {
+ /* Header Section */
+ .pickup-id {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 8px !important;
@@ -21,6 +22,13 @@
     display: flex;
     align-items: center;
 }
+ /* Header Section */
+
+
+
+
+
+
 
 .location-section {
     margin-top: 10px;
@@ -90,6 +98,10 @@
 /* Add these styles to your scheduledTaskDetails.css file */
 .instructions-section {
   margin-top: 16px;
+}
+
+.instructions-section-heading {
+  font-size: 1.1rem;
 }
 
 .border-rounded-card {

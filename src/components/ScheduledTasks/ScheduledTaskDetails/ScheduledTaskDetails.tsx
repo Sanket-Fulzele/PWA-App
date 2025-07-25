@@ -8,6 +8,7 @@ import {
   GeoAlt, Person, Telephone, ExclamationTriangle,
   Box, ChevronDown, ChevronUp
 } from 'react-bootstrap-icons';
+import './scheduledTaskDetails.css';
 
 interface CustomToggleProps {
   children: (isOpen: boolean) => ReactNode;  // Change to function child
@@ -111,9 +112,9 @@ const ScheduledTaskDetails = () => {
       {/* Header Section */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
-          <h2 className="pickup-id mb-2 fw-bold">PU-001</h2>
+          <h3 className="pickup-id mb-2 fw-bold">PU-001</h3>
           <Badge pill className="pickup-badge d-flex align-items-center px-2 py-1">
-            <Truck size={14} className="me-1" />
+            <Truck size={14} className="me-2" />
             <span>Pickup</span>
           </Badge>
         </div>
@@ -199,7 +200,7 @@ const ScheduledTaskDetails = () => {
             <Card.Body>
               <div className="d-flex align-items-center mb-2">
                 <ExclamationTriangle size={18} className="me-2 text-warning" />
-                <h5 className="mb-0 fw-semibold">Special Instructions</h5>
+                <h4 className="mb-0 instructions-section-heading">Special Instructions</h4>
               </div>
               <div className="instructions-text">
                 {pickupData.overall_instructions_for_driver}
