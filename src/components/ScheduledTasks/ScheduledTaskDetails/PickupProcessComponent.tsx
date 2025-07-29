@@ -1,16 +1,30 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import SignatureComponent from "./SignatureComponent";
 import "./PickupProcessComponent.css";
+import { Box } from "react-bootstrap-icons";
 
 
 interface InventoryItem {
-  id: number;
-  name: string;
-  description: string;
-  weight: string;
+  pickupItemId: number;
+  pickupId: number;
+  inventoryItemId: number;
+  itemName: string;
+  itemDescription: string;
+  quantity: number;
+  weightKg: number;
+  lengthCm: number;
+  widthCm: number;
+  heightCm: number;
+  volumeCm3: number;
+  itemType: string;
+  natureOfGoods: string;
+  declaredValue: number;
+  specialInstructions?: string;
+  createdAt: string;
+  updatedAt: string;
+  itemStatus?: number;
   comments?: string;
-  itemStatus?: number; // 0: Pending, 1: In Progress, 2: Completed
 }
 
 interface Props {
@@ -49,6 +63,7 @@ const CustomLabel = ({
     </Col>
   </Form.Group>
 );
+
 
 
 
@@ -94,15 +109,17 @@ const PickupProcessComponent: React.FC<Props> = ({
     newItems[current].itemStatus = statusValue;
     setUpdatedItems(newItems);
 
-    onUpdateItemStatus(item.id, statusValue);
+    onUpdateItemStatus(item.pickupItemId, statusValue);
 
     const payload = {
       pickId: PickId,
-      itemId: item.id,
+      itemId: item.pickupItemId,
       pickType: PickType,
       status: statusValue,
       comment: comments[current] || "",
     };
+
+    console.log("Payload:", payload);
 
     // setItemStatusData((prev) => {
     //   const existingIndex = prev.findIndex((entry) => entry.itemId === item.id);
@@ -143,13 +160,55 @@ const PickupProcessComponent: React.FC<Props> = ({
         </h6>
 
         <Form>
-          <div className="border rounded px-2 py-2 mb-3 bg-light">
+          {/* <div className="border rounded px-2 py-2 mb-3 bg-light">
             <CustomLabel label="Name :" value={item.name} controlId="itemName" />
             <CustomLabel label="Description :" value={item.description} controlId="itemDescription" />
             <CustomLabel label="Weight :" value={item.weight} controlId="itemWeight" />
+          </div> */}
+
+
+          <div>
+            <Card className="mb-3">
+              <Card.Header className="p-3 card-header-details-accordion bg-white">
+                <div className="d-flex align-items-center w-100">
+                  <div className="d-flex align-items-center">
+                    <Box size={20} className="me-3 text-primary" />
+                    <span className="fw-semibold text-dark">{item.itemName}</span>
+                  </div>
+                </div>
+              </Card.Header>
+              <Card.Body className="p-3 bg-light">
+                <div className="item-details">
+                  <div className="detail-row mb-2">
+                    <span className="detail-label fw-medium">Description:</span>
+                    <span className="text-dark">{item.itemDescription}</span>
+                  </div>
+                  <div className="detail-row mb-2">
+                    <span className="detail-label fw-medium">Quantity:</span>
+                    <span className="text-dark">{item.quantity}</span>
+                  </div>
+                  <div className="detail-row mb-2">
+                    <span className="detail-label fw-medium">Weight:</span>
+                    <span className="text-dark">{item.weightKg} kg</span>
+                  </div>
+                  <div className="detail-row mb-2">
+                    <span className="detail-label fw-medium">Item Type:</span>
+                    <span className="text-dark">{item.itemType}</span>
+                  </div>
+                  <div className="detail-row mb-2">
+                    <span className="detail-label fw-medium">Nature of Goods:</span>
+                    <span className="text-dark">{item.natureOfGoods}</span>
+                  </div>
+                  <div className="detail-row">
+                    <span className="detail-label fw-medium">Special Instructions:</span>
+                    <span className="text-dark">{item.specialInstructions || 'No special instructions'}</span>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
           </div>
 
-          <Form.Group className="mb-4" controlId={`comment-${item.id}`}>
+          <Form.Group className="mb-4" controlId={`comment-${item.pickupItemId}`}>
             <Form.Label className="fw-semibold small-label">Comments</Form.Label>
             <Form.Control
               type="text"
