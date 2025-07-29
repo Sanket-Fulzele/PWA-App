@@ -1,0 +1,105 @@
+.page-container {
+  padding: 20px;
+  margin-top: 60px;
+}
+
+.task-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.task-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.supplier-name {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-badge.pending {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-badge.in-progress {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.completed {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-badge.cancelled {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.task-card-body {
+  flex-grow: 1;
+}
+
+.card-address {
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.details-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background-color: #f5f5f5;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.details-button:hover {
+  background-color: #e0e0e0;
+}
+
+.details-icon {
+  font-size: 1.1rem;
+}
+
+.search-icon {
+  font-size: 1.1rem;
+  margin-left: 4px;
+}

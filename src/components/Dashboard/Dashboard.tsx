@@ -1,7 +1,8 @@
 import React from 'react'
 import "./dashboard.css";
 import { useNavigate } from 'react-router-dom';
-import { Search, InfoCircle } from 'react-bootstrap-icons';
+import { InfoCircle } from 'react-bootstrap-icons';
+
 
 interface Task {
   id: number;
@@ -51,7 +52,6 @@ const Dashboard = () => {
   ];
 
     const handleDetailsClick = (taskId: number) => {
-    console.log('Viewing details for task:', taskId);
     navigate("/scheduled-tasks/details?id=" + taskId);
   };
 
@@ -80,7 +80,7 @@ const Dashboard = () => {
               onClick={() => handleDetailsClick(task.id)}
             >
               <InfoCircle className='details-icon' />
-              Details
+              Details   
             </button>
           </div>
         ))}

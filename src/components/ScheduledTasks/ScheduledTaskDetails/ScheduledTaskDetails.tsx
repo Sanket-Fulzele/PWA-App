@@ -1,14 +1,150 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import {
-  Badge, Card, Accordion,
-  useAccordionButton, Modal, Form, Button
+  Badge, Card, Accordion, useAccordionButton, Modal, Form, Button
 } from 'react-bootstrap';
 import {
-  Truck, Clock, CheckCircle, ArrowRepeat,
-  GeoAlt, Person, Telephone, ExclamationTriangle,
+  Truck, Clock, CheckCircle, ArrowRepeat, GeoAlt, Person, Telephone, ExclamationTriangle,
   Box, ChevronDown, ChevronUp, Search
 } from 'react-bootstrap-icons';
 import './scheduledTaskDetails.css';
+import PickupProcessComponent from './PickupProcessComponent';
+
+const PickupData = {
+  "pickupId": 4,
+  "pickupNumber": "TEST-001",
+  "supplierId": 1,
+  "requestedPickupDate": "2025-07-28T00:00:00",
+  "requestedTimeSlot": "Morning",
+  "pickupAddressId": 1,
+  "deliveryAddressId": 2,
+  "deliveryRecipientName": "John Doe",
+  "deliveryRecipientContactNumber": "9876543210",
+  "overallInstructionsForDriver": "Please call before delivery.",
+  "pickupStatusId": 1,
+  "estimatedTotalWeightKg": 25.5,
+  "estimatedTotalVolumeCm3": 125000,
+  "totalPickupAmount": 1200,
+  "assignedDriverId": 1,
+  "assignedVehicleId": 601,
+  "actualPickupTimestamp": null,
+  "actualDeliveryTimestamp": null,
+  "createdAt": "2025-07-28T15:38:01.19",
+  "createdBy": 99,
+  "updatedAt": "2025-07-28T16:40:17.42",
+  "supplier": {
+    "supplierId": 1,
+    "userId": 0,
+    "supplierName": "Acme Corp",
+    "contactName": null,
+    "email": "john@acme.com",
+    "phone": "9876543210",
+    "gstin": null,
+    "isActive": false,
+    "createdAt": "0001-01-01T00:00:00",
+    "updatedAt": "0001-01-01T00:00:00",
+    "supplierAddressId": 0,
+    "pickUpAddressId": 0,
+    "deliverAddressId": 0
+  },
+  "pickupAddress": {
+    "addressId": 1,
+    "addressTypeId": 1,
+    "addressLine1": "123 MG Road",
+    "addressLine2": "Near Central Mall",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "pincode": "560001",
+    "country": "India",
+    "latitude": 12.971599,
+    "longitude": 77.594566,
+    "landmark": "Opposite Central Mall",
+    "createdAt": "2025-07-24T14:54:59.933",
+    "updatedAt": "2025-07-24T14:54:59.933"
+  },
+  "deliveryAddress": {
+    "addressId": 2,
+    "addressTypeId": 2,
+    "addressLine1": "45 Residency Road",
+    "addressLine2": null,
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "pincode": "560025",
+    "country": "India",
+    "latitude": 12.972442,
+    "longitude": 77.580643,
+    "landmark": "Beside SBI Bank",
+    "createdAt": "2025-07-24T14:54:59.933",
+    "updatedAt": "2025-07-28T12:28:20.003"
+  },
+  "assigneVehicle": null,
+  "assigneDriver": {
+    "driverId": 1,
+    "driverName": "Raj Kumar",
+    "phone": "2222222222",
+    "licenseNumber": "DL123456",
+    "vehicleNumber": "KA01AB1234"
+  },
+  "pickupItems": null,
+  "pickupItemsDetail": [
+    {
+      "pickupItemId": 1,
+      "pickupId": 4,
+      "inventoryItemId": 1,
+      "itemName": "Laptop",
+      "itemDescription": "Dell Latitude 5400",
+      "quantity": 2,
+      "weightKg": 2.5,
+      "lengthCm": 35,
+      "widthCm": 24,
+      "heightCm": 2,
+      "volumeCm3": 1680,
+      "itemType": "Electronics",
+      "natureOfGoods": "Fragile",
+      "declaredValue": 150000,
+      "specialInstructions": "Handle with care",
+      "createdAt": "2025-07-24T17:18:44.597",
+      "updatedAt": "2025-07-24T17:18:44.597"
+    },
+    {
+      "pickupItemId": 3,
+      "pickupId": 4,
+      "inventoryItemId": 2,
+      "itemName": "Steel Rods",
+      "itemDescription": "Mild steel rods for construction",
+      "quantity": 20,
+      "weightKg": 12,
+      "lengthCm": 150,
+      "widthCm": 5,
+      "heightCm": 5,
+      "volumeCm3": 3750,
+      "itemType": "Construction",
+      "natureOfGoods": "Non-fragile",
+      "declaredValue": 12000,
+      "specialInstructions": null,
+      "createdAt": "2025-07-24T17:18:44.597",
+      "updatedAt": "2025-07-24T17:18:44.597"
+    },
+    {
+      "pickupItemId": 4,
+      "pickupId": 4,
+      "inventoryItemId": 4,
+      "itemName": "Refrigerator",
+      "itemDescription": "Single-door fridge 190L",
+      "quantity": 1,
+      "weightKg": 35,
+      "lengthCm": 55,
+      "widthCm": 60,
+      "heightCm": 140,
+      "volumeCm3": 462000,
+      "itemType": "Appliances",
+      "natureOfGoods": "Fragile",
+      "declaredValue": 18000,
+      "specialInstructions": "Keep upright",
+      "createdAt": "2025-07-24T17:18:44.597",
+      "updatedAt": "2025-07-24T17:18:44.597"
+    }
+  ]
+}
 
 interface CustomToggleProps {
   children: (isOpen: boolean) => ReactNode;
@@ -81,11 +217,11 @@ const StatusUpdateModal: React.FC<StatusUpdateModalProps> = ({ currentStatus, on
 
   return (
     <>
-      <div 
-        className="status-indicator" 
+      <div
+        className="status-indicator"
         onClick={() => setShowModal(true)}
-        style={{ 
-          backgroundColor: `${statusConfig[currentStatus].color}20`, 
+        style={{
+          backgroundColor: `${statusConfig[currentStatus].color}20`,
           border: `1px solid ${statusConfig[currentStatus].color}`,
           borderRadius: '20px',
           padding: '0.375rem 0.75rem',
@@ -108,9 +244,9 @@ const StatusUpdateModal: React.FC<StatusUpdateModalProps> = ({ currentStatus, on
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Current Status</Form.Label>
-              <div 
-                className="p-2 rounded" 
-                style={{ 
+              <div
+                className="p-2 rounded"
+                style={{
                   backgroundColor: `${statusConfig[currentStatus].color}20`,
                   borderLeft: `4px solid ${statusConfig[currentStatus].color}`
                 }}
@@ -121,7 +257,7 @@ const StatusUpdateModal: React.FC<StatusUpdateModalProps> = ({ currentStatus, on
 
             <Form.Group className="mb-3">
               <Form.Label>Update Status To</Form.Label>
-              <Form.Select 
+              <Form.Select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value as Status)}
               >
@@ -147,74 +283,51 @@ const StatusUpdateModal: React.FC<StatusUpdateModalProps> = ({ currentStatus, on
   );
 };
 
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  quantity: number;
-  weightKg: number;
-  type: string;
-  nature: string;
-}
 
-interface AddressDetails {
-  address: string;
-  landmark: string;
-  contactName: string;
-  contactNumber: string;
-}
+
+
+
+
+
 
 const ScheduledTaskDetails = () => {
+
   const [status, setStatus] = useState<Status>('in-progress');
+  const [showProcess, setShowProcess] = useState(false);
+  const [pickupDetailsData, setPickupDetailsData] = useState(PickupData);
+  const [pickupItemArray, setPickupItemArray] = useState<any>([]);
 
-  const items: Item[] = [
-    {
-      id: 1,
-      name: "Electronics Package",
-      description: "Laptop and accessories",
-      quantity: 1,
-      weightKg: 3.5,
-      type: "Fragile",
-      nature: "Electronics"
-    },
-    {
-      id: 2,
-      name: "Documents",
-      description: "Legal contracts",
-      quantity: 1,
-      weightKg: 0.5,
-      type: "Non-fragile",
-      nature: "Paper"
-    },
-    {
-      id: 3,
-      name: "Medical Supplies",
-      description: "Vaccine vials",
-      quantity: 5,
-      weightKg: 2.0,
-      type: "Temperature Sensitive",
-      nature: "Medical"
+  useEffect(() => {
+    if (pickupDetailsData?.pickupItemsDetail?.length > 0) {
+      setPickupItemArray(pickupDetailsData?.pickupItemsDetail || []);
     }
-  ];
+  }, [pickupDetailsData]);
 
-  const pickupDetails: AddressDetails = {
-    address: "123 Business Park, Tower B, 5th Floor, Near Central Mall",
-    landmark: "Opposite City Hospital",
-    contactName: "John Smith",
-    contactNumber: "+1 (555) 123-4567"
-  };
 
-  const deliveryDetails: AddressDetails = {
-    address: "456 Customer Street, Apartment 22B, Building C",
-    landmark: "Next to Community Park",
-    contactName: "Sarah Johnson",
-    contactNumber: "+1 (555) 987-6543"
-  };
+  const handleUpdateItemStatus = (itemId: number, status: number) => {
+  setPickupItemArray((prev:any) =>
+    prev.map((item:any) =>
+      item.pickupItemId === itemId ? { ...item, itemStatus: status } : item
+    )
+  );
+};
 
-  const specialInstructions = "Handle with care - fragile items inside. Deliver to reception desk only. Call recipient 15 mins before arrival.";
+
+  if (showProcess) {
+    return (
+      <PickupProcessComponent
+        items={pickupItemArray}
+        PickId={pickupDetailsData?.pickupId}
+        PickType={pickupDetailsData?.pickupStatusId < 6 ? "Pickup" : "Delivery"}
+        onGoToItems={() => setShowProcess(false)}
+        onUpdateItemStatus={handleUpdateItemStatus}
+      />
+    );
+  }
+
 
   return (
-    <div className='page-container'>
+    <div className='mt-2'>
       {/* Compact Search Section */}
       <div className="compact-search">
         <label htmlFor="mobileSearch" className="compact-search__label">Pickup</label>
@@ -234,10 +347,10 @@ const ScheduledTaskDetails = () => {
       {/* Header Section */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
-          <h3 className="pickup-id mb-2 fw-bold">PU-001</h3>
+          <h3 className="pickup-id mb-2 fw-bold"> {pickupDetailsData?.pickupNumber} </h3>
           <Badge pill className="pickup-badge d-flex align-items-center px-2 py-1 bg-light text-dark">
             <Truck size={14} className="me-2" />
-            <span>Pickup</span>
+            <span> {pickupDetailsData?.pickupStatusId < 6 ? "Pickup" : "Delivery"} </span>
           </Badge>
         </div>
 
@@ -260,22 +373,29 @@ const ScheduledTaskDetails = () => {
                 <GeoAlt size={16} className="me-2 mt-1 icon" />
                 <div>
                   <div className="fw-semibold">Full Address</div>
-                  <div>{pickupDetails.address}</div>
-                  <div className="text-muted small">Landmark: {pickupDetails.landmark}</div>
+                  <div>{pickupDetailsData?.pickupAddress?.addressLine1},</div>
+                  {pickupDetailsData?.pickupAddress?.addressLine2 && <div>{pickupDetailsData?.pickupAddress?.addressLine2},</div>}
+                  <div>
+                    {pickupDetailsData?.pickupAddress?.city},&nbsp;
+                    {pickupDetailsData?.pickupAddress?.state},&nbsp;
+                    {pickupDetailsData?.pickupAddress?.country}
+                  </div>
+                  <div>{pickupDetailsData?.pickupAddress?.pincode}</div>
+                  <div className="text-muted small">Landmark: {pickupDetailsData?.pickupAddress?.landmark}</div>
                 </div>
               </div>
               <div className="d-flex mb-2">
                 <Person size={16} className="me-2 mt-1 icon" />
                 <div>
                   <div className="fw-semibold">Contact Person</div>
-                  <div>{pickupDetails.contactName}</div>
+                  <div>{pickupDetailsData?.supplier.supplierName}</div>
                 </div>
               </div>
               <div className="d-flex">
                 <Telephone size={16} className="me-2 mt-1 icon" />
                 <div>
                   <div className="fw-semibold">Contact Number</div>
-                  <div>{pickupDetails.contactNumber}</div>
+                  <div>{pickupDetailsData?.supplier.phone}</div>
                 </div>
               </div>
             </div>
@@ -291,22 +411,29 @@ const ScheduledTaskDetails = () => {
                 <GeoAlt size={16} className="me-2 mt-1 icon" />
                 <div>
                   <div className="fw-semibold">Full Address</div>
-                  <div>{deliveryDetails.address}</div>
-                  <div className="text-muted small">Landmark: {deliveryDetails.landmark}</div>
+                  <div>{pickupDetailsData?.deliveryAddress?.addressLine1},</div>
+                  {pickupDetailsData?.deliveryAddress?.addressLine2 && <div>{pickupDetailsData?.deliveryAddress?.addressLine2},</div>}
+                  <div>
+                    {pickupDetailsData?.deliveryAddress?.city},&nbsp;
+                    {pickupDetailsData?.deliveryAddress?.state},&nbsp;
+                    {pickupDetailsData?.deliveryAddress?.country}
+                  </div>
+                  <div>{pickupDetailsData?.deliveryAddress?.pincode}</div>
+                  <div className="text-muted small">Landmark: {pickupDetailsData?.deliveryAddress?.landmark}</div>
                 </div>
               </div>
               <div className="d-flex mb-2">
                 <Person size={16} className="me-2 mt-1 icon" />
                 <div>
                   <div className="fw-semibold">Contact Person</div>
-                  <div>{deliveryDetails.contactName}</div>
+                  <div>{pickupDetailsData.deliveryRecipientName}</div>
                 </div>
               </div>
               <div className="d-flex">
                 <Telephone size={16} className="me-2 mt-1 icon" />
                 <div>
                   <div className="fw-semibold">Contact Number</div>
-                  <div>{deliveryDetails.contactNumber}</div>
+                  <div>{pickupDetailsData.deliveryRecipientContactNumber}</div>
                 </div>
               </div>
             </div>
@@ -314,7 +441,7 @@ const ScheduledTaskDetails = () => {
         </Card>
       </div>
 
-      {specialInstructions && (
+      {pickupDetailsData?.overallInstructionsForDriver && (
         <div className="instructions-section mt-3">
           <Card className="border-rounded-card">
             <Card.Body>
@@ -323,7 +450,7 @@ const ScheduledTaskDetails = () => {
                 <h4 className="mb-0 instructions-section-heading">Special Instructions</h4>
               </div>
               <div className="instructions-text">
-                {specialInstructions}
+                {pickupDetailsData?.overallInstructionsForDriver}
               </div>
             </Card.Body>
           </Card>
@@ -334,15 +461,15 @@ const ScheduledTaskDetails = () => {
         <h4 className="items-heading mb-3 text-dark">Item/Package List</h4>
 
         <Accordion className="custom-accordion">
-          {items.map((item, index) => (
-            <Card key={item.id} className="mb-3">
+          {pickupItemArray.map((item:any, index:any) => (
+            <Card key={item.pickupItemId} className="mb-3">
               <Card.Header className="p-3 card-header-details-accordion bg-white">
                 <CustomToggle eventKey={index.toString()}>
                   {(isOpen) => (
                     <div className="d-flex align-items-center justify-content-between w-100">
                       <div className="d-flex align-items-center">
                         <Box size={20} className="me-3 text-primary" />
-                        <span className="fw-semibold text-dark">{item.name}</span>
+                        <span className="fw-semibold text-dark">{item.itemName}</span>
                       </div>
                       <div className="accordion-arrow">
                         {isOpen ? (
@@ -361,7 +488,7 @@ const ScheduledTaskDetails = () => {
                   <div className="item-details">
                     <div className="detail-row mb-2">
                       <span className="detail-label fw-medium">Description:</span>
-                      <span className="text-dark">{item.description}</span>
+                      <span className="text-dark">{item.itemDescription}</span>
                     </div>
                     <div className="detail-row mb-2">
                       <span className="detail-label fw-medium">Quantity:</span>
@@ -373,11 +500,15 @@ const ScheduledTaskDetails = () => {
                     </div>
                     <div className="detail-row mb-2">
                       <span className="detail-label fw-medium">Item Type:</span>
-                      <span className="text-dark">{item.type}</span>
+                      <span className="text-dark">{item.itemType}</span>
+                    </div>
+                    <div className="detail-row mb-2">
+                      <span className="detail-label fw-medium">Nature of Goods:</span>
+                      <span className="text-dark">{item.natureOfGoods}</span>
                     </div>
                     <div className="detail-row">
-                      <span className="detail-label fw-medium">Nature of Goods:</span>
-                      <span className="text-dark">{item.nature}</span>
+                      <span className="detail-label fw-medium">Special Instruction:</span>
+                      <span className="text-dark">{item.specialInstructions}</span>
                     </div>
                   </div>
                 </Card.Body>
@@ -386,6 +517,12 @@ const ScheduledTaskDetails = () => {
           ))}
         </Accordion>
       </div>
+
+      <div className='mt-2 d-flex justify-content-end'>
+        <Button onClick={() => setShowProcess(true)} > {pickupDetailsData?.pickupStatusId < 6 ? "Start Picking" : "Delivery"} </Button>
+      </div>
+
+
     </div>
   );
 };

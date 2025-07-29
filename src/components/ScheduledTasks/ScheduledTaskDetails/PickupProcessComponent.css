@@ -1,0 +1,74 @@
+.pickup-mobile-container {
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px;
+}
+
+.pickup-content {
+  flex: 1 1 auto;
+  padding-top: 1rem;
+}
+
+.pickup-footer-sticky {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.small-label {
+  font-size: 0.85rem;
+}
+
+.small-value {
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.action-buttons {
+  /* position: fixed; */
+  right: 16px;
+  z-index: 1050;
+}
+
+/* buttons  */
+
+.custom-button {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.3s ease;
+  -webkit-transition: background-color 0.2s ease, opacity 0.3s ease;
+  -moz-transition: background-color 0.2s ease, opacity 0.3s ease;
+  -ms-transition: background-color 0.2s ease, opacity 0.3s ease;
+  -o-transition: background-color 0.2s ease, opacity 0.3s ease;
+}
+
+.custom-button:hover {
+  opacity: 0.8; 
+}
+
+/* Cancel Button (Red) */
+.btn-cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c82333;
+}
+
+/* Success Button (Green) */
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
