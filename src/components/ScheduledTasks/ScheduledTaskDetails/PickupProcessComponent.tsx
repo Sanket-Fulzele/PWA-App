@@ -80,9 +80,9 @@ const PickupProcessComponent: React.FC<Props> = ({
 
   const [itemStatusData, setItemStatusData] = useState<
     {
-      pickId: string;
+      pickId: number;
       itemId: number;
-      status: number;
+      status: ItemStatus;
       comment: string;
       pickType: string;
     }[]
@@ -121,17 +121,16 @@ const PickupProcessComponent: React.FC<Props> = ({
 
     console.log("Payload:", payload);
 
-    // setItemStatusData((prev) => {
-    //   const existingIndex = prev.findIndex((entry) => entry.itemId === item.id);
-    //   const updated = [...prev];
-    //   if (existingIndex !== -1) {
-    //     updated[existingIndex] = payload;
-    //   } else {
-    //     updated.push(payload);
-    //   }
-    //   console.log("Current Item Update:", payload);
-    //   return updated;
-    // });
+    setItemStatusData((prev) => {
+      const existingIndex = prev.findIndex((entry) => entry.itemId === item.pickupItemId);
+      const updated = [...prev];
+      if (existingIndex !== -1) {
+        updated[existingIndex] = payload;
+      } else {
+        updated.push(payload);
+      }
+      return updated;
+    });
   };
 
   const handleNext = () => {
@@ -159,14 +158,7 @@ const PickupProcessComponent: React.FC<Props> = ({
           Item {current + 1} of {items.length}
         </h6>
 
-        <Form>
-          {/* <div className="border rounded px-2 py-2 mb-3 bg-light">
-            <CustomLabel label="Name :" value={item.name} controlId="itemName" />
-            <CustomLabel label="Description :" value={item.description} controlId="itemDescription" />
-            <CustomLabel label="Weight :" value={item.weight} controlId="itemWeight" />
-          </div> */}
-
-
+ 
           <div>
             <Card className="mb-3">
               <Card.Header className="p-3 card-header-details-accordion bg-white">
@@ -207,7 +199,8 @@ const PickupProcessComponent: React.FC<Props> = ({
               </Card.Body>
             </Card>
           </div>
-
+          
+       <Form>
           <Form.Group className="mb-4" controlId={`comment-${item.pickupItemId}`}>
             <Form.Label className="fw-semibold small-label">Comments</Form.Label>
             <Form.Control
